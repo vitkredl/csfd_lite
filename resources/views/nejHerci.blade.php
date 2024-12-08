@@ -15,9 +15,9 @@
 
     <!-- Ikony zarovnané na střed -->
     <div class="icons">
-        <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</span>
+        <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</a>
         <a href="{{ route('listFilmu') }}" class="material-symbols-outlined">list</a>
-        <a href="{{ route('nejHerci') }}" class="material-symbols-outlined">recent_actors</a>
+        <span class="material-symbols-outlined">recent_actors</span>
        
     </div>
 
@@ -30,14 +30,14 @@
 
 <body>
     <div class="movies-container">
-        <h1>Nejlepší filmy</h1>
-        @foreach ($movies as $movie)
+        <h1>Nejlepší herci</h1>
+        @foreach ($actors as $actor)
         <div class="movie-item">
-            <img src="{{ $movie['image'] }}" alt="Poster filmu">
+            <img src="{{ $actor['image'] }}" alt="Poster filmu">
             <div class="movie-info">
-                <p class="movie-title">{{ $movie['title'] }}</p>
+                <p class="movie-title">{{ $actor['title'] }}</p>
                 <p class="movie-details">
-                    Rok: {{ $movie['year'] }} | Čas: {{ $movie['duration'] }} min | Věk: {{ $movie['age'] }}+ | Hodnocení: {{ $movie['rating'] }}/10
+                    Rok: {{ $actor['year'] }} | Čas: {{ $actor['duration'] }} min | Věk: {{ $actor['age'] }}+ | Hodnocení: {{ $actor['rating'] }}/10
                 </p>
             </div>
             <div class="movie-actions">

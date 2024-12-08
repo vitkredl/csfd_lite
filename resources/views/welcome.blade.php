@@ -15,7 +15,7 @@
     <div class="icons">
         <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</span>
         <a href="{{ route('listFilmu') }}" class="material-symbols-outlined">list</a>
-        <span class="material-symbols-outlined">recent_actors</span>
+        <a href="{{ route('nejHerci') }}" class="material-symbols-outlined">recent_actors</a>
        
     </div>
 

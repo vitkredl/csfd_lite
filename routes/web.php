@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ActorController;
 
 
 Route::get('/', function () {
@@ -20,4 +21,5 @@ Route::middleware([
 
 Route::get('/', [MovieController::class, 'welcome'])->name('welcome');
 Route::get('/list-filmu', [MovieController::class, 'listFilmu'])->name('listFilmu'); // Zde oprava
+Route::get('/nej-herci', [ActorController::class, 'nejHerci'])->name('nejHerci'); // Zde oprava
 
