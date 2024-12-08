@@ -13,10 +13,10 @@
 
     <!-- Ikony zarovnané na střed -->
     <div class="icons">
-        <span class="material-symbols-outlined">home</span>
-        <a href="" class="material-symbols-outlined">list</a>
+        <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</span>
+        <a href="{{ route('listFilmu') }}" class="material-symbols-outlined">list</a>
         <span class="material-symbols-outlined">recent_actors</span>
-        <span class="material-symbols-outlined">genres</span>
+       
     </div>
 
     <!-- Vyhledávání pod ikonami -->
@@ -28,47 +28,49 @@
 
 <body>
     <main class="main-content">
-        <section class="videos-section">
-            <div class="video-block">
-                <div class="section-title">Nové filmy</div>
-                <div class="video-wrapper">
-                    <video src="movie.mp4" controls class="video-player"></video>
-                    <div class="video-info">
-                        <p>Jméno filmu <span class="year">2024</span></p>
-                        <span class="source">Zdroj</span>
-                    </div>
+    <section class="videos-section">
+        <div class="video-block">
+            <div class="section-title">Nové filmy</div>
+            <div class="video-wrapper">
+                <video src="movie.mp4" controls class="video-player"></video>
+                <div class="video-info">
+                    <p>Jméno filmu <span class="year">2024</span></p>
+                    <span class="source">Zdroj</span>
                 </div>
             </div>
+        </div>
 
-            <div class="video-block">
-                <div class="section-title">Nové seriály</div>
-                <div class="video-wrapper">
-                    <video src="series.mp4" controls class="video-player"></video>
-                    <div class="video-info">
-                        <p>Jméno seriálu <span class="year">2024</span></p>
-                        <span class="source">Zdroj</span>
-                    </div>
+        <div class="video-block">
+            <div class="section-title">Nové seriály</div>
+            <div class="video-wrapper">
+                <video src="series.mp4" controls class="video-player"></video>
+                <div class="video-info">
+                    <p>Jméno seriálu <span class="year">2024</span></p>
+                    <span class="source">Zdroj</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <aside class="tips-section">
-            <div class="tips-title">Tipy na film</div>
-            <div class="tip-card">
-                <img src="tip1.jpg" alt="Tip na film" class="tip-image">
-                <div class="tip-info">
-                    <p>Jméno filmu, rok, věk</p>
-                </div>
-                <span class="material-symbols-outlined info-circle">info</span>
+    <!-- Tipy na filmy -->
+    <aside class="tips-section">
+        <div class="section-title">Tipy na film</div>
+        <div class="tip-card">
+            <img src="movie-poster.jpg" alt="Film" class="tip-image">
+            <div class="tip-info">
+                <p>Jméno filmu, rok, věk</p>
+                <a href="" class="material-symbols-outlined">info</a>
             </div>
-            <div class="tip-card">
-                <img src="tip2.jpg" alt="Tip na film" class="tip-image">
-                <div class="tip-info">
-                    <p>Jméno filmu, rok, věk</p>
-                </div>
-                <span class="material-symbols-outlined info-circle">info</span>
+        </div>
+        <div class="tip-card">
+            <img src="movie-poster.jpg" alt="Film" class="tip-image">
+            <div class="tip-info">
+                <p>Jméno filmu, rok, věk</p>
+                <a href="" class="material-symbols-outlined">info</a>
             </div>
-        </aside>
+        </div>
+    </aside>
+
     </main>
 
     <footer>

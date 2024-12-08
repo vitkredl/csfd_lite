@@ -18,5 +18,6 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/movies', [MovieController::class, 'index']);
+Route::get('/', [MovieController::class, 'welcome'])->name('welcome');
+Route::get('/list-filmu', [MovieController::class, 'listFilmu'])->name('listFilmu'); // Zde oprava
 
