@@ -1,0 +1,11 @@
+[90m= [39m[34;4mApp\Models\Movie[39;24m {#6294
+    [34mid[39m: [35m6[39m,
+    [34mname[39m: "[32mŠimon něco pořád říká[39m",
+    [34myear[39m: [35m2024[39m,
+    [34mgenre[39m: "[32mkomedie-horor[39m",
+    [34mactor[39m: "[32mŠimon venclík[39m",
+    [34mimage[39m: "[32mpublic/images/UXldipzwSFAqqIi2RjdfOn3fgzkEcGGya4HcCHzW.jpg[39m",
+    [34mcreated_at[39m: "[32m2024-12-13 09:00:59[39m",
+    [34mupdated_at[39m: "[32m2024-12-13 09:00:59[39m",
+  }
+
