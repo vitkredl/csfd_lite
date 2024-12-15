@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,20 +14,20 @@
 </head>
 
 <body class="font-sans antialiased bg-gray-100">
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<header class="header fixed top-0 w-full bg-white shadow-lg z-50">
-    <div class="search-container">
-        
-        <div x-data="{ query: '', results: [], showDropdown: false }" class="relative search-container">
-    <!-- Vyhledávací input -->
-    <div class="flex items-center">
-        <input 
-            type="text" 
-            placeholder="Vyhledávání filmu nebo herce..." 
-            class="search-input border p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600" 
-            x-model="query" 
-            @input.debounce.300ms="
+    <header class="header fixed top-0 w-full bg-white shadow-lg z-50">
+        <div class="search-container">
+
+            <div x-data="{ query: '', results: [], showDropdown: false }" class="relative search-container">
+                <!-- Vyhledávací input -->
+                <div class="flex items-center">
+                    <input
+                        type="text"
+                        placeholder="Vyhledávání"
+                        class="search-input border p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        x-model="query"
+                        @input.debounce.300ms="
                 fetch(`/autocomplete?query=${query}`)
                 .then(res => res.json())
                 .then(data => {
@@ -34,45 +35,44 @@
                     showDropdown = data.movies.length > 0 || data.actors.length > 0 || query.length > 0;
                 });
             "
-            @click.away="showDropdown = false"
-        >
-    </div>
+                        @click.away="showDropdown = false">
+                </div>
 
-    <!-- Dropdown s výsledky -->
-    <div x-show="showDropdown" class="absolute top-full mt-1 w-full bg-white border rounded-lg shadow-lg z-50">
-        <template x-if="results.length > 0">
-            <ul>
-                <template x-for="item in results" :key="item.id">
-                    <li class="p-2 hover:bg-gray-100 flex items-center space-x-2">
-                        <img :src="`/${item.image}`" alt="Náhled" class="w-8 h-8 object-cover rounded-full">
-                        <a :href="`/movies/${item.id}`" x-text="item.name" class="block text-gray-700"></a>
-                    </li>
-                </template>
-            </ul>
-        </template>
-        <template x-if="results.length === 0 && query.length > 0">
-            <p class="p-2 text-gray-500 text-center">Nic jsme nenašli.</p>
-        </template>
-    </div>
-</div>
-    </div>
+                <!-- Dropdown s výsledky -->
+                <div x-show="showDropdown" class="absolute top-full mt-1 w-full bg-white border rounded-lg shadow-lg z-50">
+                    <template x-if="results.length > 0">
+                        <ul>
+                            <template x-for="item in results" :key="item.id">
+                                <li class="p-2 hover:bg-gray-100 flex items-center space-x-2">
+                                    <img :src="`/${item.image}`" alt="Náhled" class="w-8 h-8 object-cover rounded-full">
+                                    <a :href="`/movies/${item.id}`" x-text="item.name" class="block text-gray-700"></a>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                    <template x-if="results.length === 0 && query.length > 0">
+                        <p class="p-2 text-gray-500 text-center">Nic jsme nenašli.</p>
+                    </template>
+                </div>
+            </div>
+        </div>
 
-    <!-- Ikony -->
-    <div class="icons">
-    <a href="{{ route('addFilm.create') }}" class="material-symbols-outlined">add_circle</a>
-        <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</a>
-        <a href="{{ route('listFilmu') }}" class="material-symbols-outlined">list</a>
-        <a href="{{ route('nejHerci') }}" class="material-symbols-outlined">recent_actors</a>
-    </div>
+        <!-- Ikony -->
+        <div class="icons">
+            <a href="{{ route('addFilm.create') }}" class="material-symbols-outlined">add_circle</a>
+            <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</a>
+            <a href="{{ route('listFilmu') }}" class="material-symbols-outlined">list</a>
+            <a href="{{ route('nejHerci') }}" class="material-symbols-outlined">recent_actors</a>
+        </div>
 
-    <!-- Odkazy pro přihlášení/odhlášení -->
-    <div class="auth-links">
-        @guest
+        <!-- Odkazy pro přihlášení/odhlášení -->
+        <div class="auth-links">
+            @guest
             <a href="{{ route('login') }}" class="login-link">Přihlásit</a>
             <a href="{{ route('register') }}" class="register-link">Registrovat</a>
-        @endguest
+            @endguest
 
-        @auth
+            @auth
             <div class="relative inline-block text-left" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                 <button type="button" class="flex items-center text-gray-700 hover:text-gray-900 focus:outline-none">
                     {{ Auth::user()->name }}
@@ -86,18 +86,19 @@
                     </form>
                 </div>
             </div>
-        @endauth
-    </div>
-</header>
+            @endauth
+        </div>
+    </header>
 
 
     @if (session('success'))
     <div class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
         {{ session('success') }}
     </div>
-@endif
+    @endif
 
-<body>
+    <body>
+    <div class="list-filmu-page">
     <div class="movies-container">
         <h1 class="BestFilms">Nejlepší filmy</h1>
         @foreach ($movies as $movie)
@@ -106,22 +107,20 @@
             <div class="movie-info">
                 <p class="movie-title">{{ $movie->name }}</p>
                 <p class="movie-details">
-                Rok: {{ $movie->year }} | Žánr: {{ $movie->genre }} | Herec: {{ $movie->actor }}
+                    Rok: {{ $movie->year }} | Žánr: {{ $movie->genre }} | Herec: {{ $movie->actor }}
                 </p>
                 <p class="movie-description">{{ $movie->popisFilmu }}</p>
-
-            
             </div>
             <div class="movie-actions">
-            <a href="{{ route('movies.show', $movie->id) }}" class="material-symbols-outlined">info</a>
-
+                <a href="{{ route('movies.show', $movie->id) }}" class="material-symbols-outlined">info</a>
             </div>
         </div>
         @endforeach
     </div>
+</div>
 
-    <!-- Navigace pro stránkování -->
-<div class="pagination-container">
-    {{ $movies->links() }}
+        <!-- Navigace pro stránkování -->
+        <div class="pagination-container">
+            {{ $movies->links() }}
 
-</body>
+    </body>

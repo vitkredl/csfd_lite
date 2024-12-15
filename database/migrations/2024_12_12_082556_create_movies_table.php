@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('genre');
             $table->text('actor')->nullable();
             $table->string('image');
-            $table->text('popisFilmu')->nullable(); // Správně definovaný sloupec
+            $table->text('popisFilmu')->nullable();
+            $table->string('video')->nullable();
             $table->timestamps();
         });
     }

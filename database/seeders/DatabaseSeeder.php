@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
 
         // Seedování filmů
         $this->call(MovieSeeder::class); // Zavolání MovieSeederu
+        $this->call(ActorSeeder::class); // Zavolání ActorSeederu
     }
 }

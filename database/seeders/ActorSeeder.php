@@ -9,6 +9,7 @@ class ActorSeeder extends Seeder
 {
     public function run()
     {
+        // Původní herci
         Actor::create([
             'name' => 'Leonardo DiCaprio',
             'age' => 48,
@@ -23,6 +24,31 @@ class ActorSeeder extends Seeder
             'rating' => 9.0,
             'image' => 'images/emma_watson.jpg',
             'bio' => 'Best known for her role in Harry Potter.',
+        ]);
+
+        // Noví herci
+        Actor::create([
+            'name' => 'Robert Downey Jr.',
+            'age' => 59,
+            'rating' => 9.7,
+            'image' => 'images/robert_downey.jpg',
+            'bio' => 'Known for his iconic role as Iron Man in the Marvel Cinematic Universe.',
+        ]);
+
+        Actor::create([
+            'name' => 'Scarlett Johansson',
+            'age' => 39,
+            'rating' => 9.3,
+            'image' => 'images/scarlett_johansson.jpg',
+            'bio' => 'Famous for her performances in Black Widow and Lost in Translation.',
+        ]);
+
+        Actor::create([
+            'name' => 'Tom Hanks',
+            'age' => 67,
+            'rating' => 9.6,
+            'image' => 'images/tom_hanks.jpg',
+            'bio' => 'Legendary actor known for roles in Forrest Gump and Cast Away.',
         ]);
     }
 }

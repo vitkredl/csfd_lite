@@ -9,5 +9,11 @@ class Actor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'age', 'rating', 'image', 'bio'];
+    protected $fillable = [
+        'name',
+        'age',
+        'rating',
+        'image',
+        'bio',
+    ];
 }

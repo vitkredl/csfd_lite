@@ -33,6 +33,14 @@ body {
     z-index: 1000;
 }
 
+.login-link{
+    padding: 10px;
+}
+
+.register-link{
+   padding: 10px;
+}
+
 .search-container {
     position: relative;
 }
@@ -85,46 +93,78 @@ body {
 .icons a {
     text-decoration: none;
     color: #333;
-    font-size: 18px;
+    font-size: 25px;
     margin: 0 10px;
     transition: color 0.3s;
 }
 
 .icons a:hover {
-    color: #007BFF;
+    color: #c0ba89;
 }
 
 /* Layout pro hlavní obsah */
 .main-content {
     display: flex;
-    gap: 20px;
+    gap: 20px; /* Mezery mezi bloky */
     margin-top: 80px; /* Rezerva pod headerem */
+    justify-content: space-between; /* Zarovná oba bloky */
 }
 
 /* Videa sekce */
 .videos-section {
-    flex: 2;
+    flex: 2; /* Hlavní sekce s videi zabere více místa */
 }
 
 .video-block {
     background-color: #fff;
-    padding: 15px;
+    padding: 10px; /* Menší padding */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Menší mezera mezi bloky */
+    display: flex;
+    flex-direction: column;
+    max-width: 600px; /* Maximální šířka bloku */
+    margin: 0 auto 20px; /* Vycentrování a mezera dolů */
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* Poměr stran 16:9 */
+    overflow: hidden;
+    border-radius: 8px; /* Kulaté rohy */
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* Odstranění okraje */
 }
 
 .video-player {
-    width: 100%;
+    width: 100%; /* Šířka přehrávače */
+    height: 315px; /* Výška přehrávače */
     border-radius: 8px;
+}
+
+.video-info {
+    margin-top: 10px; /* Mezera mezi videem a textem */
+    font-size: 14px;
+    text-align: center; /* Zarovnání textu na střed */
+    color: #333;
 }
 
 /* Tipy na filmy */
 .tips-section {
-    flex: 1;
+    flex: 1; /* Šířka tipů na filmy */
+    margin-right: 60px; /* Posun od pravé strany */
+    max-width: 300px; /* Nastavíme maximální šířku */
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px; /* Mezera mezi tipy */
 }
 
 .tips-section .movie-item {
@@ -150,23 +190,40 @@ body {
 }
 
 .tips-section .info-link {
-    color: #007BFF;
-    font-size: 18px;
+    color: #000000;
+    font-size: 25px;
     text-decoration: none;
+    transition: color 0,3s;
 }
 
-/* Movies List */
-.movies-container {
+.tips-section .info-link:hover {
+    color: #c0ba89;
+}
+
+/* Specifické styly pro list-filmu stránku */
+.list-filmu-page {
+    margin-top: 80px; /* Rezerva pod headerem */
+}
+
+.list-filmu-page .movies-container {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
 }
 
-.movie-item {
+.list-filmu-page .BestFilms {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Každý film */
+.list-filmu-page .movie-item {
     display: flex;
-    align-items: center;
+    align-items: center; /* Zarovnání obsahu vertikálně na střed */
+    justify-content: space-between; /* Obrázek vlevo, text uprostřed, ikona vpravo */
     margin-bottom: 15px;
     background-color: #f1f1f1;
     padding: 10px;
@@ -174,7 +231,7 @@ body {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
-.movie-item img {
+.list-filmu-page .movie-item img {
     width: 80px;
     height: 120px;
     object-fit: cover;
@@ -182,43 +239,141 @@ body {
     margin-right: 15px;
 }
 
-.movie-info .movie-title {
+/* Informace o filmu */
+.list-filmu-page .movie-info {
+    flex: 1;
+    text-align: left; /* Zarovnání textu doleva */
+}
+
+.list-filmu-page .movie-info .movie-title {
     font-size: 18px;
     font-weight: bold;
     color: #333;
+    margin-bottom: 5px;
 }
 
-.movie-info p {
-    margin: 5px 0;
+.list-filmu-page .movie-info .movie-details {
     color: #555;
+    margin-bottom: 5px;
 }
 
-/* Detail filmu */
-.movie-detail {
-    background-color: #fff;
-    border-radius: 8px;
+.list-filmu-page .movie-info .movie-description {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Akce (ikona info) */
+.list-filmu-page .movie-actions {
+    display: flex;
+    align-items: center; /* Zarovnání ikonky vertikálně na střed */
+    justify-content: center; /* Zarovnání ikonky horizontálně na střed */
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.list-filmu-page .movie-actions a {
+    color: #000000;
+    font-size: 25px; /* Velikost ikony */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.list-filmu-page .movie-actions a:hover {
+    color: #c0ba89;
+}
+
+/* Globální nastavení pro detail filmu */
+.modern-movie-detail {
+    background-color: #f9fafb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
     padding: 20px;
-    max-width: 600px;
-    margin: 40px auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
 }
 
-.movie-detail img {
-    width: 80%;
-    border-radius: 8px;
-    margin-bottom: 15px;
+/* Hlavní karta filmu */
+.movie-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Rozdělení na 2 části */
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    align-items: center;
 }
 
-.movie-info-block h1 {
-    font-size: 2rem;
+/* Obrázek filmu */
+.movie-image-container {
+    height: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+}
+
+.movie-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+/* Informace o filmu */
+.movie-info-container {
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Tlačítko na konec bloku */
+}
+
+.movie-title {
+    font-size: 1.8rem;
     font-weight: bold;
+    color: #333;
     margin-bottom: 10px;
 }
 
-.movie-info-block p {
+.movie-meta {
     margin: 5px 0;
+    color: #555;
+    font-size: 1rem;
 }
+
+.movie-description {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Tlačítko Zpět */
+.back-button-container {
+    text-align: right; /* Zarovnání vpravo */
+    margin-top: 20px;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: #f1f1f1; /* Šedé pozadí */
+    color: #333; /* Text v tmavší barvě */
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #c0ba89; /* Lehce tmavší šedá při hoveru */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
 
 /* Formulář pro přidání filmu */
 .form-container {
@@ -262,3 +417,72 @@ footer {
     margin-top: 20px;
     font-size: 14px;
 }
+
+/*styly herci*/
+
+.actors-container{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .BestActors {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .actor-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        background-color: #f1f1f1;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .actor-image {
+        width: 80px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 15px;
+    }
+
+    .actor-info {
+        flex: 1;
+    }
+
+    .actor-name {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .actor-details {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .actor-bio {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .actor-actions a {
+        text-decoration: none;
+        color: #007BFF;
+        font-size: 18px;
+        transition: color 0.3s;
+    }
+
+    .actor-actions a:hover {
+        color: #0056b3;
+    }
+
+    .BestActors{
+        margin-top: 70px;
+        margin-left: 10px;
+    }

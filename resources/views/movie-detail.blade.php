@@ -6,23 +6,27 @@
     <title>{{ $movie->name }}</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> <!-- Globální styly -->
 </head>
-<body>
+<body class="modern-movie-detail">
     <!-- Detail filmu -->
-    <div class="movie-detail">
-        <!-- Obrázek -->
-        <img src="{{ asset($movie->image) }}" alt="{{ $movie->name }}" class="movie-image">
-        <!-- Blok informací a popisu -->
-        <div class="movie-info-block">
-            <h1>{{ $movie->name }}</h1>
-            <p><span class="font-semibold">Rok:</span> {{ $movie->year }}</p>
-            <p><span class="font-semibold">Žánr:</span> {{ $movie->genre }}</p>
-            <p><span class="font-semibold">Herec:</span> {{ $movie->actor }}</p>
-            <div class="movie-description">
-                <p><span class="font-semibold">Popis:</span> {{ $movie->popisFilmu }}</p>
+    <div class="movie-card">
+        <!-- Obrázek vlevo -->
+        <div class="movie-image-container">
+            <img src="{{ asset($movie->image) }}" alt="{{ $movie->name }}" class="movie-image">
+        </div>
+        
+        <!-- Textové informace vpravo -->
+        <div class="movie-info-container">
+            <h1 class="movie-title">{{ $movie->name }}</h1>
+            <p class="movie-meta"><strong>Rok:</strong> {{ $movie->year }}</p>
+            <p class="movie-meta"><strong>Žánr:</strong> {{ $movie->genre }}</p>
+            <p class="movie-meta"><strong>Herec:</strong> {{ $movie->actor }}</p>
+            <p class="movie-description">{{ $movie->popisFilmu }}</p>
+            
+            <!-- Tlačítko zpět -->
+            <div class="back-button-container">
+                <a href="{{ route('listFilmu') }}" class="back-button">Zpět</a>
             </div>
         </div>
-        <!-- Tlačítko Zpět -->
-        <a href="{{ route('listFilmu') }}" class="movie-back-button">Zpět</a>
     </div>
 </body>
 </html>
