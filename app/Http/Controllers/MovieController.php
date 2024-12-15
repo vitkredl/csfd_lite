@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Movie;
-
+use App\Models\Actor;
 
 class MovieController extends Controller
 {
@@ -66,6 +66,35 @@ public function show($id)
 {
     $movie = Movie::findOrFail($id); // Načtení filmu podle ID
     return view('movie-detail', compact('movie')); // Přesměrování na nový blade
+}
+
+public function search(Request $request)
+{
+    $query = $request->input('query');
+
+    $movies = Movie::where('name', 'like', "%{$query}%")->get();
+
+    return view('welcome', [
+        'movies' => $movies,
+        'query' => $query,
+    ]);
+}
+
+public function autocomplete(Request $request)
+{
+    $query = $request->input('query');
+
+    if ($query) {
+        $movies = Movie::where('name', 'like', "%{$query}%")->select('id', 'name', 'image')->get();
+        $actors = Actor::where('name', 'like', "%{$query}%")->select('id', 'name', 'image')->get();
+
+        return response()->json([
+            'movies' => $movies,
+            'actors' => $actors
+        ]);
+    }
+
+    return response()->json(['movies' => [], 'actors' => []]);
 }
 
 }

@@ -15,67 +15,81 @@
 <body class="font-sans antialiased bg-gray-100">
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <header class="header">
-        <!-- Vyhledávací pole -->
-        <div class="search-container">
-            <input type="text" placeholder="Vyhledávání" class="search-input">
-            <a href="{{ route('addFilm.create') }}" class="material-symbols-outlined outadd" id="iconAdd">add</a>
-        </div>
+<header class="header fixed top-0 w-full bg-white shadow-lg z-50">
+    <div class="search-container">
         
-        <!-- Ikony -->
-        <div class="icons">
-            <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</a>
-            <a href="{{ route('listFilmu') }}" class="material-symbols-outlined">list</a>
-            <a href="{{ route('nejHerci') }}" class="material-symbols-outlined">recent_actors</a>
-        </div>
+        <div x-data="{ query: '', results: [], showDropdown: false }" class="relative search-container">
+    <!-- Vyhledávací input -->
+    <div class="flex items-center">
+        <input 
+            type="text" 
+            placeholder="Vyhledávání filmu nebo herce..." 
+            class="search-input border p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600" 
+            x-model="query" 
+            @input.debounce.300ms="
+                fetch(`/autocomplete?query=${query}`)
+                .then(res => res.json())
+                .then(data => {
+                    results = [...data.movies, ...data.actors];
+                    showDropdown = data.movies.length > 0 || data.actors.length > 0 || query.length > 0;
+                });
+            "
+            @click.away="showDropdown = false"
+        >
+    </div>
 
-        <!-- Auth Links -->
-        <div class="auth-links">
-            @guest
-                <!-- Odkazy pro nepřihlášené -->
-                <a href="{{ route('login') }}" class="login-link">Přihlásit</a>
-                <a href="{{ route('register') }}" class="register-link">Registrovat</a>
-            @endguest
-
-            @auth
-                <!-- Dropdown pro přihlášené -->
-                <div class="relative inline-block text-left" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-    <!-- Tlačítko pro zobrazení uživatelského menu -->
-    <button
-        type="button"
-        class="flex items-center w-full px-4 py-2 text-sm text-white hover:bg-gray-100 focus:outline-none">
-        {{ Auth::user()->name }}
-        <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-    </button>
-
-    <!-- Dropdown nabídka -->
-    <div
-        class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20"
-        x-show="open"
-        x-transition>
-        <!-- Profil tlačítko -->
-        <form action="{{ route('profile.show') }}" method="GET" class="block">
-            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                Profil
-            </button>
-        </form>
-
-        <!-- Logout tlačítko -->
-        <form method="POST" action="{{ route('logout') }}" class="block">
-            @csrf
-            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                Odhlásit
-            </button>
-        </form>
+    <!-- Dropdown s výsledky -->
+    <div x-show="showDropdown" class="absolute top-full mt-1 w-full bg-white border rounded-lg shadow-lg z-50">
+        <template x-if="results.length > 0">
+            <ul>
+                <template x-for="item in results" :key="item.id">
+                    <li class="p-2 hover:bg-gray-100 flex items-center space-x-2">
+                        <img :src="`/${item.image}`" alt="Náhled" class="w-8 h-8 object-cover rounded-full">
+                        <a :href="`/movies/${item.id}`" x-text="item.name" class="block text-gray-700"></a>
+                    </li>
+                </template>
+            </ul>
+        </template>
+        <template x-if="results.length === 0 && query.length > 0">
+            <p class="p-2 text-gray-500 text-center">Nic jsme nenašli.</p>
+        </template>
     </div>
 </div>
+    </div>
 
+    <!-- Ikony -->
+    <div class="icons">
+    <a href="{{ route('addFilm.create') }}" class="material-symbols-outlined">add_circle</a>
+        <a href="{{ route('welcome') }}" class="material-symbols-outlined">home</a>
+        <a href="{{ route('listFilmu') }}" class="material-symbols-outlined">list</a>
+        <a href="{{ route('nejHerci') }}" class="material-symbols-outlined">recent_actors</a>
+    </div>
 
-            @endauth
-        </div>
-    </header>
+    <!-- Odkazy pro přihlášení/odhlášení -->
+    <div class="auth-links">
+        @guest
+            <a href="{{ route('login') }}" class="login-link">Přihlásit</a>
+            <a href="{{ route('register') }}" class="register-link">Registrovat</a>
+        @endguest
+
+        @auth
+            <div class="relative inline-block text-left" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                <button type="button" class="flex items-center text-gray-700 hover:text-gray-900 focus:outline-none">
+                    {{ Auth::user()->name }}
+                    <span class="material-symbols-outlined ml-1">expand_more</span>
+                </button>
+                <div class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-50" x-show="open" x-transition>
+                    <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Odhlásit</button>
+                    </form>
+                </div>
+            </div>
+        @endauth
+    </div>
+</header>
+
 
     <main class="main-content">
         <!-- Sekce videí -->
