@@ -12,4 +12,6 @@ class ActorController extends Controller
         $actors = Actor::all();
         return view('nejHerci', compact('actors'));
     }
+
 }
+

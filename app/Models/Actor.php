@@ -16,4 +16,9 @@ class Actor extends Model
         'image',
         'bio',
     ];
+
+    public function movies()
+{
+    return $this->hasMany(Movie::class, 'actor', 'name');
+}
 }

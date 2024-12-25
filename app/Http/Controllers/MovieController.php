@@ -64,21 +64,27 @@ class MovieController extends Controller
 
 public function show($id)
 {
-    $movie = Movie::findOrFail($id); // Načtení filmu podle ID
-    return view('movie-detail', compact('movie')); // Přesměrování na nový blade
+    $movie = Movie::findOrFail($id);
+    return view('movie-detail', compact('movie'));
 }
 
 public function search(Request $request)
 {
     $query = $request->input('query');
 
+    // Vyhledávání ve filmech
     $movies = Movie::where('name', 'like', "%{$query}%")->get();
 
-    return view('welcome', [
+    // Vyhledávání v hercích
+    $actors = Actor::where('name', 'like', "%{$query}%")->with('movies')->get();
+
+    return response()->json([
         'movies' => $movies,
-        'query' => $query,
+        'actors' => $actors
     ]);
 }
+
+
 
 public function autocomplete(Request $request)
 {
@@ -86,7 +92,17 @@ public function autocomplete(Request $request)
 
     if ($query) {
         $movies = Movie::where('name', 'like', "%{$query}%")->select('id', 'name', 'image')->get();
-        $actors = Actor::where('name', 'like', "%{$query}%")->select('id', 'name', 'image')->get();
+        $actors = Actor::where('name', 'like', "%{$query}%")
+            ->with(['movies' => function ($query) {
+                $query->select('id', 'name', 'image', 'actor');
+            }])
+            ->select('id', 'name', 'image')
+            ->get();
+
+        // Filtruj herce, kteří nemají žádný film
+        $actors = $actors->filter(function ($actor) {
+            return $actor->movies->isNotEmpty();
+        });
 
         return response()->json([
             'movies' => $movies,
@@ -96,5 +112,6 @@ public function autocomplete(Request $request)
 
     return response()->json(['movies' => [], 'actors' => []]);
 }
+
 
 }

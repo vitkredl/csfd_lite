@@ -20,7 +20,6 @@
         <div class="search-container">
 
             <div x-data="{ query: '', results: [], showDropdown: false }" class="relative search-container">
-                <!-- Vyhledávací input -->
                 <div class="flex items-center">
                     <input
                         type="text"
@@ -32,20 +31,23 @@
                 .then(res => res.json())
                 .then(data => {
                     results = [...data.movies, ...data.actors];
-                    showDropdown = data.movies.length > 0 || data.actors.length > 0 || query.length > 0;
+                    showDropdown = results.length > 0 || query.length > 0;
                 });
             "
                         @click.away="showDropdown = false">
                 </div>
 
-                <!-- Dropdown s výsledky -->
                 <div x-show="showDropdown" class="absolute top-full mt-1 w-full bg-white border rounded-lg shadow-lg z-50">
                     <template x-if="results.length > 0">
                         <ul>
                             <template x-for="item in results" :key="item.id">
                                 <li class="p-2 hover:bg-gray-100 flex items-center space-x-2">
                                     <img :src="`/${item.image}`" alt="Náhled" class="w-8 h-8 object-cover rounded-full">
-                                    <a :href="`/movies/${item.id}`" x-text="item.name" class="block text-gray-700"></a>
+                                    <a
+                                        :href="item.movies ? `/movies/${item.movies[0].id}` : `/movies/${item.id}`"
+                                        x-text="item.name"
+                                        class="block text-gray-700">
+                                    </a>
                                 </li>
                             </template>
                         </ul>
@@ -98,10 +100,10 @@
             <div class="video-block">
                 <div class="text-xl font-bold mb-4">Nové filmy</div>
                 <div class="video-wrapper">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/nLIEYvHMS8U?si=xIzOoOMrZdvXLUtk" 
-                    title="YouTube video player" 
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/nLIEYvHMS8U?si=xIzOoOMrZdvXLUtk"
+                        title="YouTube video player"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     <div class="video-info">
                         <p>Jméno filmu <span class="year">2024</span></p>
                     </div>
@@ -112,12 +114,12 @@
             <div class="video-block">
                 <h1 class="text-xl font-bold mb-4">Nové filmy</h1>
                 <div class="video-wrapper">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/qkITu2Ea9mY?si=Rul30vdjYLLF3un6" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                </iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/qkITu2Ea9mY?si=Rul30vdjYLLF3un6"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
                     <div class="video-info">
                         <p>Jméno seriálu <span class="year">2024</span></p>
                     </div>
