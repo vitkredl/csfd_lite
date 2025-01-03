@@ -9,7 +9,7 @@ class ActorController extends Controller
 {
     public function index()
     {
-        $actors = Actor::all();
+        $actors = Actor::orderBy('rating', 'desc')->get();
         return view('nejHerci', compact('actors'));
     }
 

@@ -12,6 +12,32 @@ body {
     line-height: 1.6;
 }
 
+/*zarovnání rozbalovacího menu*/
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 12rem; 
+    max-width: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/*obsah uvnitř viditelného prostoru */
+.absolute.right-0 {
+    right: 0;
+    left: auto;
+}
+
+
 /* Kontejner pro hlavní obsah */
 .container {
     max-width: 1200px;

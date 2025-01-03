@@ -78,7 +78,7 @@
                     {{ Auth::user()->name }}
                     <span class="material-symbols-outlined ml-1">expand_more</span>
                 </button>
-                <div class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-50" x-show="open" x-transition>
+                <<div class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-50" x-show="open" x-transition>
                     <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
