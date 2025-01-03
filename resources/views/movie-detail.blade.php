@@ -24,7 +24,7 @@
             
             <!-- Tlačítko zpět -->
             <div class="back-button-container">
-                <a href="{{ route('listFilmu') }}" class="back-button">Zpět</a>
+                <a onclick="history.back()" class="back-button">Zpět</a>
             </div>
         </div>
     </div>
